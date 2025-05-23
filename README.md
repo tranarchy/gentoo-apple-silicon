@@ -140,7 +140,7 @@ RUSTFLAGS="-C target-cpu=native"
 ```
 
 ```
-VIDE_CARDS="asahi"
+VIDEO_CARDS="asahi"
 ```
 
 If you use GRUB
