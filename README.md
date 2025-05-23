@@ -6,6 +6,9 @@ There is an older [guide](https://wiki.gentoo.org/wiki/User:Jared/Gentoo_On_An_M
 
 So I have decided to document my Gentoo installation process that doesn't require installing Fedora or using [asahi-gentoosupport](https://github.com/chadmed/asahi-gentoosupport/tree/main)
 
+> [!NOTE]
+> If you are planning on using Steam read [this](#steam) before proceeding
+
 ## UEFI environment
 
 From macOS run the following in the terminal
@@ -62,7 +65,7 @@ cfdisk /dev/nvme0n1
 
 Select the free space and create a new partition, write the changes then quit
 
-Now you can format the new partition with whatever filesystem you want, the Gentoo handbook recommends `xfs`
+Now you can format the new partition with whatever filesystem you want
 
 ```
 mkfs.xfs /dev/nvme0n1pX
@@ -111,7 +114,7 @@ cd /mnt/gentoo
 Download the desired arm64 stage3 tarball
 
 ```
-wget https://distfiles.gentoo.org/releases/
+wget https://distfiles.gentoo.org/releases/...
 ```
 
 Extract it to `/mnt/gentoo`
@@ -265,8 +268,36 @@ grub-mkconfig -o /boot/grub/grub.cfg
 > [!NOTE]
 > Now you can return to the [handbook](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/System) and finish your install
 
+## Post install
 
+### Compiling amd64 only packages
 
+You might want to emerge a package that is only available for amd64
+
+You can try this by unmasking the `amd64` or `~amd64` keyword for it and for it's amd64 only dependencies
+
+```
+vi /etc/portage/package.accept_keywords
+```
+
+```
+gui-wm/hyprland ~amd64
+other-hyprland/dependency ~amd64
+```
+
+It may or may not not compile, but I got [hyprland](https://packages.gentoo.org/packages/gui-wm/hyprland) to work this way so it's worth a try
+
+### Steam
+
+You can install Steam from the `asahi-overlay`, it works by running in a micorVM via [muvm](https://github.com/AsahiLinux/muvm/) and [FEX](https://github.com/FEX-Emu/FEX)
+
+```
+emerge steam
+```
+
+Run `steam-aarch64` to launch Steam
+
+Currently the `RootFS` for `FEX` is mounted via systemd files, I tried to manually mount them on an OpenRC install however it complained about `libc.so.6` missing, [someone else](https://github.com/chadmed/asahi-overlay/issues/138) experienced the same issue so right now it's probably best to use systemd if you are planning on using Steam. 
 
 
 
