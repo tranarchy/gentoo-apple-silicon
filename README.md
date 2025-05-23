@@ -185,6 +185,8 @@ Huge thanks to chadmed for creating [asahi-overlay](https://github.com/chadmed/a
 
 ## Kernel and bootloader
 
+### Kernel
+
 Apple Sillicon needs `linux-firwmare` to work so emerge it
 
 ```
@@ -216,7 +218,21 @@ eselect kernel set x
 cd /usr/src/linux
 ```
 
-You can start configuring the kernel with `make menuconfig` or you can use the [.config](https://raw.githubusercontent.com/void-linux/void-packages/refs/heads/master/srcpkgs/linux-asahi/files/arm64-dotconfig) from Void Linux as a base
+You can start configuring the kernel with 
+
+```
+make rustavailable
+make menuconfig
+``` 
+
+You can also use the [.config](https://raw.githubusercontent.com/void-linux/void-packages/refs/heads/master/srcpkgs/linux-asahi/files/arm64-dotconfig) from Void Linux as a base
+
+> [!WARNING]
+> `make rustavailable` enables rust specific kernel options
+>
+> This is crucial on Apple Sillicon since multiple drivers for it are written in rust
+>
+> You _can_ boot without rust enabled but you won't get GPU acceleration or audio for an example
 
 ```
 make -j$(nproc)
@@ -224,12 +240,19 @@ make modules_install
 make install
 ```
 
+### Apple firwmare and m1n1
+
 Upgrade the firmware and m1n1
 
 ```
 asahi-fwupdate
 update-m1n1
 ```
+
+> [!WARNING]
+> Run `update-m1n1` whenever `m1n1`, `u-boot` or `asahi-sources` updates
+
+### Bootloader
 
 We will use GRUB as our bootloader
 
