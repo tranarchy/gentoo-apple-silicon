@@ -41,19 +41,36 @@ After downloading the LiveCD write it to an USB with `dd`
 dd if=void-live-asahi-XXXXXXXX-base.iso of=/dev/sdX
 ```
 
-## Booting from USB
-
-Boot from the USB in the Asahi UEFI environment
-
-If it doesn't boot the USB by default you can try the following
-
-```
-run bootcmd_usb0
-```
-
 ## Live environment
 
-Once you booted into the LiveCD we can start the installation process
+Once you booted into the LiveCD from the Asahi UEFI environment we can start the installation process
+
+### Internet
+
+Use `ip a` to get the name of your network interface
+
+```
+wpa_passphrase <SSID> <PASSWORD> > wpa.conf
+wpa_supplicant -i <NETWORK_INTERFACE> -c wpa.conf &
+
+dhcpcd
+```
+
+Confirm that internet works with `ping gentoo.org`
+
+### sshd (optional)
+
+If you want to do the installation from another machine you can enable sshd with
+
+```
+sv up sshd
+```
+
+If you can't login try enabling `PasswordAuthentication` and `PermitRootLogin` in the sshd config
+
+```
+sv restart sshd
+```
 
 ### Partitioning
 
@@ -75,19 +92,6 @@ mkfs.xfs /dev/nvme0n1pX
 > Do **NOT** touch any other partition
 >
 > Deleting or formatting the wrong partition can render your system unusable
-
-### Internet
-
-Use `ip a` to get the name of your network interface
-
-```
-wpa_passphrase <SSID> <PASSWORD> > wpa.conf
-wpa_supplicant -i <NETWORK_INTERFACE> -c wpa.conf &
-
-dhcpcd
-```
-
-Confirm that internet works with `ping gentoo.org`
 
 ### Acquiring the necessary tools
 
