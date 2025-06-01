@@ -286,7 +286,7 @@ gui-wm/hyprland **
 other-hyprland/dependency **
 ```
 
-It may or may not not compile, but I got [hyprland](https://packages.gentoo.org/packages/gui-wm/hyprland) to work this way so it's worth a try
+It may or may not compile, but I got [hyprland](https://packages.gentoo.org/packages/gui-wm/hyprland) to work this way so it's worth a try
 
 ### Steam
 
