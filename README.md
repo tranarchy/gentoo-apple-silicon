@@ -6,9 +6,6 @@ There is an older [guide](https://wiki.gentoo.org/wiki/User:Jared/Gentoo_On_An_M
 
 So I have decided to document my Gentoo installation process that doesn't require installing Fedora or using [asahi-gentoosupport](https://github.com/chadmed/asahi-gentoosupport/tree/main)
 
-> [!NOTE]
-> If you are planning on using Steam read [this](#steam) before proceeding
-
 ## UEFI environment
 
 From macOS run the following in the terminal
@@ -301,7 +298,7 @@ emerge steam
 
 Run `steam-aarch64` to launch Steam
 
-Currently the `RootFS` for `FEX` is mounted via systemd files, I tried to manually mount them on an OpenRC install however it complained about `libc.so.6` missing, [someone else](https://github.com/chadmed/asahi-overlay/issues/138) experienced the same issue so right now it's probably best to use systemd if you are planning on using Steam. 
+Currently the `RootFS` for `FEX` is mounted via systemd files, if you are using OpenRC you have to mount the `RootFS` manually and edit `limits.conf` click [here](https://github.com/chadmed/asahi-overlay/issues/155) for more info
 
 
 
