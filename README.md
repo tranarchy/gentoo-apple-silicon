@@ -275,15 +275,15 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 You might want to emerge a package that is only available for amd64
 
-You can try this by unmasking the package and it's amd64 only dependencies like this
+You can try this by unmasking the `amd64` or `~amd64` keyword for it and for it's amd64 only dependencies
 
 ```
 vi /etc/portage/package.accept_keywords
 ```
 
 ```
-gui-wm/hyprland **
-other-hyprland/dependency **
+gui-wm/hyprland ~amd64
+other-hyprland/dependency ~amd64
 ```
 
 It may or may not compile, but I got [hyprland](https://packages.gentoo.org/packages/gui-wm/hyprland) to work this way so it's worth a try
