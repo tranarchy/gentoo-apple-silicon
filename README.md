@@ -1,10 +1,8 @@
-# Gentoo Linux for Apple Sillicon
+# Gentoo Linux for Apple Silicon
 
-As of writing this guide there is no official documentation for installing Gentoo on Apple Sillicon
+For the official guide click [here](https://wiki.gentoo.org/wiki/Project:Asahi/Guide)
 
-There is an older [guide](https://wiki.gentoo.org/wiki/User:Jared/Gentoo_On_An_M1_Mac) by Jared that is flagged as "no longer required in most cases" and now it points to a [new guide](https://asahilinux.org/docs/alt/installing-gentoo/) that doesn't even exists
-
-So I have decided to document my Gentoo installation process that doesn't require installing Fedora or using [asahi-gentoosupport](https://github.com/chadmed/asahi-gentoosupport/tree/main)
+This guide uses the Apple Silicon Void Linux LiveCD and it uses `asahi-sources` instead of `dist-kernel` 
 
 ## UEFI environment
 
@@ -29,8 +27,8 @@ During the install process choose "UEFI environment only"
 
 ## LiveCD
 
-As of writing this guide Gentoo does not offer an official aarch64 LiveCD that boots on Apple Sillicon\
-We are going to use the official Void Linux apple sillicon LiveCD that you can download [here](https://voidlinux.org/download/#arm%20platforms)
+As of writing this guide Gentoo does not offer an official aarch64 LiveCD that boots on Apple Silicon\
+We are going to use the official Void Linux apple Silicon LiveCD that you can download [here](https://voidlinux.org/download/#arm%20platforms)
 
 After downloading the LiveCD write it to an USB with `dd`
 
@@ -150,7 +148,7 @@ If you use GRUB
 GRUB_PLATFORMS="efi-64"
 ```
 
-For M2 chips use `armv8.6-a`
+For M2 chips use `armv8.6-a` and add `bf16`
 
 ## Chroot
 
@@ -173,7 +171,7 @@ mount /dev/nvme0n1pX /boot
 
 ## Asahi packages
 
-As of writing this guide Gentoo offers [some](https://packages.gentoo.org/packages/search?q=asahi) pacakges that are required for Apple Sillicon to work, but not everything is included in the official repos
+As of writing this guide Gentoo offers [some](https://packages.gentoo.org/packages/search?q=asahi) pacakges that are required for Apple Silicon to work, but not everything is included in the official repos
 
 We are going to use the `asahi-overlay`, that is [endorsed](https://wiki.gentoo.org/wiki/Project:Asahi) by Gentoo to get everything we need
 
@@ -191,7 +189,7 @@ Huge thanks to chadmed for creating [asahi-overlay](https://github.com/chadmed/a
 
 ### Kernel
 
-Apple Sillicon needs `linux-firwmare` to work so emerge it
+Apple Silicon needs `linux-firwmare` to work so emerge it
 
 ```
 emerge linux-firmware
@@ -234,7 +232,7 @@ You can also use the [.config](https://raw.githubusercontent.com/void-linux/void
 > [!WARNING]
 > `make rustavailable` enables rust specific kernel options
 >
-> This is crucial on Apple Sillicon since multiple drivers for it are written in rust
+> This is crucial on Apple Silicon since multiple drivers for it are written in rust
 >
 > You _can_ boot without rust enabled but you won't get GPU acceleration or audio for an example
 
